@@ -4,6 +4,8 @@ import { DashboardPage } from '@/features/dashboard/DashboardPage'
 import { LoginPage } from '@/features/auth/LoginPage'
 import { ProtectedRoute } from '@/features/auth/ProtectedRoute'
 import { PublicOnlyRoute } from '@/features/auth/PublicOnlyRoute'
+import { RequireRole } from '@/features/auth/RequireRole'
+import { ShopFormPage } from '@/features/shops/ShopFormPage'
 import { ShopListPage } from '@/features/shops/ShopListPage'
 
 // Temporary stand-in — replaced by the real product feature (step 14).
@@ -16,8 +18,7 @@ function ProductsStub() {
   )
 }
 
-// Temporary stand-in — replaced by real shop create/edit (step 11) and
-// shop details (step 12) pages.
+// Temporary stand-in — replaced by the real shop details page (step 12).
 function ComingSoonStub({ title }: { title: string }) {
   return (
     <div className="space-y-2">
@@ -48,9 +49,23 @@ export function AppRouter() {
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/shops" element={<ShopListPage />} />
-            <Route path="/shops/new" element={<ComingSoonStub title="New Shop" />} />
+            <Route
+              path="/shops/new"
+              element={
+                <RequireRole allow={['admin']}>
+                  <ShopFormPage />
+                </RequireRole>
+              }
+            />
             <Route path="/shops/:shopId" element={<ComingSoonStub title="Shop Details" />} />
-            <Route path="/shops/:shopId/edit" element={<ComingSoonStub title="Edit Shop" />} />
+            <Route
+              path="/shops/:shopId/edit"
+              element={
+                <RequireRole allow={['admin']}>
+                  <ShopFormPage />
+                </RequireRole>
+              }
+            />
             <Route path="/products" element={<ProductsStub />} />
           </Route>
         </Route>
