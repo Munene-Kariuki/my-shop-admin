@@ -3,6 +3,7 @@ import { toast } from 'sonner'
 import {
   createProduct,
   deleteProduct,
+  getInventoryHistory,
   getProduct,
   listProducts,
   updateProduct,
@@ -23,6 +24,13 @@ export function useProduct(id: string) {
   return useQuery({
     queryKey: queryKeys.products.detail(id),
     queryFn: () => getProduct(id),
+  })
+}
+
+export function useInventoryHistory(productId: string) {
+  return useQuery({
+    queryKey: queryKeys.products.inventoryHistory(productId),
+    queryFn: () => getInventoryHistory(productId),
   })
 }
 

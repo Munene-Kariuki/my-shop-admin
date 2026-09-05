@@ -1,7 +1,7 @@
 import type { ProductListParams } from '@/features/products/types'
 import { apiClient, buildQueryString } from '@/lib/api/client'
 import type { PaginatedResponse, ProductInputBody } from '@/types/api'
-import type { Product } from '@/types/domain'
+import type { InventoryAdjustment, Product } from '@/types/domain'
 
 export function listProducts(params: ProductListParams = {}): Promise<PaginatedResponse<Product>> {
   return apiClient.get<PaginatedResponse<Product>>(`/products${buildQueryString(params)}`)
@@ -21,4 +21,8 @@ export function updateProduct(id: string, input: ProductInputBody): Promise<Prod
 
 export function deleteProduct(id: string): Promise<void> {
   return apiClient.delete(`/products/${id}`)
+}
+
+export function getInventoryHistory(productId: string): Promise<InventoryAdjustment[]> {
+  return apiClient.get<InventoryAdjustment[]>(`/products/${productId}/inventory-adjustments`)
 }
