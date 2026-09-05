@@ -22,6 +22,14 @@ export interface Shop {
   createdAt: string
 }
 
+export interface ShopStats {
+  productCount: number
+  totalStock: number
+  totalInventoryValue: number
+}
+
+export type ShopWithStats = Shop & ShopStats
+
 export type ProductStatus = 'active' | 'inactive'
 
 export type StockStatus = 'in-stock' | 'low-stock' | 'out-of-stock'
