@@ -11,6 +11,7 @@ import { RoleGate } from '@/components/common/RoleGate'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { DeleteShopDialog } from '@/features/shops/components/DeleteShopDialog'
 import { useShops } from '@/features/shops/hooks'
 import { useDebounce } from '@/hooks/useDebounce'
 import { useUrlState } from '@/hooks/useUrlState'
@@ -88,6 +89,9 @@ const columns: ColumnDef<ShopWithStats>[] = [
               <Pencil className="size-4" />
             </Link>
           </Button>
+        </RoleGate>
+        <RoleGate allow={['admin']}>
+          <DeleteShopDialog shop={row.original} />
         </RoleGate>
       </div>
     ),

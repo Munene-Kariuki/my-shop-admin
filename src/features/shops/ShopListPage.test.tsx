@@ -72,10 +72,11 @@ describe('ShopListPage', () => {
       expect(screen.getByRole('button', { name: /^next$/i })).toBeDisabled()
     })
 
-    it('shows edit links for admins', async () => {
+    it('shows edit and delete actions for admins', async () => {
       renderPage()
       await screen.findByText('Urban Threads')
       expect(screen.getAllByLabelText(/^edit /i).length).toBeGreaterThan(0)
+      expect(screen.getAllByLabelText(/^delete /i).length).toBeGreaterThan(0)
     })
   })
 
@@ -85,12 +86,13 @@ describe('ShopListPage', () => {
       useAuthStore.setState({ user, token })
     })
 
-    it('hides the New Shop action and edit links', async () => {
+    it('hides the New Shop action and edit/delete actions', async () => {
       renderPage()
       await screen.findByText('Urban Threads')
 
       expect(screen.queryByRole('link', { name: /new shop/i })).not.toBeInTheDocument()
       expect(screen.queryByLabelText(/^edit /i)).not.toBeInTheDocument()
+      expect(screen.queryByLabelText(/^delete /i)).not.toBeInTheDocument()
     })
   })
 })
