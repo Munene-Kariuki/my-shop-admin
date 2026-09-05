@@ -5,6 +5,7 @@ import { LoginPage } from '@/features/auth/LoginPage'
 import { ProtectedRoute } from '@/features/auth/ProtectedRoute'
 import { PublicOnlyRoute } from '@/features/auth/PublicOnlyRoute'
 import { RequireRole } from '@/features/auth/RequireRole'
+import { ShopDetailsPage } from '@/features/shops/ShopDetailsPage'
 import { ShopFormPage } from '@/features/shops/ShopFormPage'
 import { ShopListPage } from '@/features/shops/ShopListPage'
 
@@ -18,7 +19,7 @@ function ProductsStub() {
   )
 }
 
-// Temporary stand-in — replaced by the real shop details page (step 12).
+// Temporary stand-in — replaced by the real product details page (step 16).
 function ComingSoonStub({ title }: { title: string }) {
   return (
     <div className="space-y-2">
@@ -57,7 +58,7 @@ export function AppRouter() {
                 </RequireRole>
               }
             />
-            <Route path="/shops/:shopId" element={<ComingSoonStub title="Shop Details" />} />
+            <Route path="/shops/:shopId" element={<ShopDetailsPage />} />
             <Route
               path="/shops/:shopId/edit"
               element={
@@ -67,6 +68,7 @@ export function AppRouter() {
               }
             />
             <Route path="/products" element={<ProductsStub />} />
+            <Route path="/products/:productId" element={<ComingSoonStub title="Product Details" />} />
           </Route>
         </Route>
         <Route path="*" element={<NotFoundStub />} />

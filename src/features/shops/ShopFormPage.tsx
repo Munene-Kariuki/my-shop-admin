@@ -103,7 +103,7 @@ export function ShopFormPage() {
 
   function handleSubmit(values: ShopFormValues) {
     mutation.mutate(values, {
-      onSuccess: () => navigate('/shops'),
+      onSuccess: (shop) => navigate(`/shops/${shop.id}`),
     })
   }
 

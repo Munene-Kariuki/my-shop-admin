@@ -19,6 +19,7 @@ function renderAt(initialEntry: string) {
       <MemoryRouter initialEntries={[initialEntry]}>
         <Routes>
           <Route path="/shops" element={<div>Shops List Marker</div>} />
+          <Route path="/shops/:shopId" element={<div>Shop Details Marker</div>} />
           <Route path="/dashboard" element={<div>Dashboard Marker</div>} />
           <Route
             path="/shops/new"
@@ -59,14 +60,14 @@ describe('ShopFormPage', () => {
       expect(await screen.findByText(/shop name is required/i)).toBeInTheDocument()
     })
 
-    it('creates a shop and navigates back to the list', async () => {
+    it('creates a shop and navigates to its details page', async () => {
       const user = userEvent.setup()
       renderAt('/shops/new')
 
       await user.type(screen.getByLabelText(/shop name/i), 'Test Shop')
       await user.click(screen.getByRole('button', { name: /create shop/i }))
 
-      expect(await screen.findByText('Shops List Marker')).toBeInTheDocument()
+      expect(await screen.findByText('Shop Details Marker')).toBeInTheDocument()
     })
   })
 
@@ -78,7 +79,7 @@ describe('ShopFormPage', () => {
       expect(await screen.findByDisplayValue('Kitchen & Co.')).toBeInTheDocument()
     })
 
-    it('updates the shop and navigates back to the list', async () => {
+    it('updates the shop and navigates to its details page', async () => {
       const user = userEvent.setup()
       renderAt('/shops/shop-2/edit')
       await screen.findByDisplayValue('Kitchen & Co.')
@@ -88,7 +89,7 @@ describe('ShopFormPage', () => {
       await user.type(nameInput, 'Kitchen & Co. Updated')
       await user.click(screen.getByRole('button', { name: /save changes/i }))
 
-      expect(await screen.findByText('Shops List Marker')).toBeInTheDocument()
+      expect(await screen.findByText('Shop Details Marker')).toBeInTheDocument()
     })
 
     it('preserves the user\'s edits when the update request fails', async () => {
