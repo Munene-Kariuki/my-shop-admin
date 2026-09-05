@@ -1,5 +1,6 @@
-import { useQuery } from '@tanstack/react-query'
-import { listProducts } from '@/features/products/api'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { toast } from 'sonner'
+import { deleteProduct, getProduct, listProducts } from '@/features/products/api'
 import type { ProductListParams } from '@/features/products/types'
 import { queryKeys } from '@/lib/queryKeys'
 
@@ -8,5 +9,28 @@ export function useProducts(params: ProductListParams) {
     queryKey: queryKeys.products.list(params),
     queryFn: () => listProducts(params),
     placeholderData: (previousData) => previousData,
+  })
+}
+
+export function useProduct(id: string) {
+  return useQuery({
+    queryKey: queryKeys.products.detail(id),
+    queryFn: () => getProduct(id),
+  })
+}
+
+export function useDeleteProduct() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: (id: string) => deleteProduct(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.products.all })
+      queryClient.invalidateQueries({ queryKey: queryKeys.shops.all })
+      toast.success('Product deleted')
+    },
+    onError: (error) => {
+      toast.error(error.message)
+    },
   })
 }
