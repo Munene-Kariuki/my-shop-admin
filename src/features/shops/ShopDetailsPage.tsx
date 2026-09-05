@@ -1,7 +1,7 @@
 import type { ColumnDef, SortingState } from '@tanstack/react-table'
-import { DollarSign, Layers, Package, Pencil } from 'lucide-react'
+import { DollarSign, Layers, Package, Pencil, Trash2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { DataTable } from '@/components/common/DataTable'
 import { DataTablePagination } from '@/components/common/DataTablePagination'
 import { EmptyState } from '@/components/common/EmptyState'
@@ -15,6 +15,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useProducts } from '@/features/products/hooks'
+import { DeleteShopDialog } from '@/features/shops/components/DeleteShopDialog'
 import { useShop } from '@/features/shops/hooks'
 import { useDebounce } from '@/hooks/useDebounce'
 import { useUrlState } from '@/hooks/useUrlState'
@@ -65,6 +66,7 @@ const productColumns: ColumnDef<Product>[] = [
 
 export function ShopDetailsPage() {
   const { shopId } = useParams<{ shopId: string }>()
+  const navigate = useNavigate()
   const shopQuery = useShop(shopId ?? '')
 
   const [urlState, setUrlState] = useUrlState(DEFAULT_STATE)
@@ -160,14 +162,28 @@ export function ShopDetailsPage() {
             <p className="mt-1 text-sm text-muted-foreground">Created {formatDate(shop.createdAt)}</p>
           </div>
         </div>
-        <RoleGate allow={['admin']}>
-          <Button asChild variant="outline">
-            <Link to={`/shops/${shop.id}/edit`}>
-              <Pencil className="size-4" />
-              Edit Shop
-            </Link>
-          </Button>
-        </RoleGate>
+        <div className="flex items-center gap-2">
+          <RoleGate allow={['admin']}>
+            <Button asChild variant="outline">
+              <Link to={`/shops/${shop.id}/edit`}>
+                <Pencil className="size-4" />
+                Edit Shop
+              </Link>
+            </Button>
+          </RoleGate>
+          <RoleGate allow={['admin']}>
+            <DeleteShopDialog
+              shop={shop}
+              onDeleted={() => navigate('/shops')}
+              trigger={
+                <Button variant="outline" className="text-destructive hover:text-destructive">
+                  <Trash2 className="size-4" />
+                  Delete Shop
+                </Button>
+              }
+            />
+          </RoleGate>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">

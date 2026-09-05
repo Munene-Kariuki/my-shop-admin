@@ -18,3 +18,7 @@ export function createShop(input: ShopInputBody): Promise<ShopWithStats> {
 export function updateShop(id: string, input: ShopInputBody): Promise<ShopWithStats> {
   return apiClient.patch<ShopWithStats>(`/shops/${id}`, input)
 }
+
+export function deleteShop(id: string): Promise<void> {
+  return apiClient.delete(`/shops/${id}`)
+}

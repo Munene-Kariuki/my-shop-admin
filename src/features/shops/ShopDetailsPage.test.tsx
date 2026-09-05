@@ -70,18 +70,20 @@ describe('ShopDetailsPage', () => {
     expect(screen.getByRole('link', { name: /back to shops/i })).toHaveAttribute('href', '/shops')
   })
 
-  it('shows the Edit Shop action for admins but not viewers', async () => {
+  it('shows the Edit Shop and Delete Shop actions for admins', async () => {
     renderAt('/shops/shop-1')
     expect(await screen.findByRole('link', { name: /edit shop/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /delete shop/i })).toBeInTheDocument()
   })
 })
 
 describe('ShopDetailsPage as a viewer', () => {
   beforeEach(() => loginAndSetRole('viewer'))
 
-  it('hides the Edit Shop action', async () => {
+  it('hides the Edit Shop and Delete Shop actions', async () => {
     renderAt('/shops/shop-1')
     await screen.findByRole('heading', { name: 'Urban Threads' })
     expect(screen.queryByRole('link', { name: /edit shop/i })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /delete shop/i })).not.toBeInTheDocument()
   })
 })

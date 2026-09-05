@@ -1,7 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import { createShop, getShop, listShops, updateShop } from '@/features/shops/api'
+import { createShop, deleteShop, getShop, listShops, updateShop } from '@/features/shops/api'
 import type { ShopListParams } from '@/features/shops/types'
+import { ApiError } from '@/lib/api/client'
 import { queryKeys } from '@/lib/queryKeys'
 import type { ShopInputBody } from '@/types/api'
 
@@ -45,6 +46,23 @@ export function useUpdateShop(id: string) {
       toast.success('Shop updated')
     },
     onError: (error) => {
+      toast.error(error.message)
+    },
+  })
+}
+
+export function useDeleteShop() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: (id: string) => deleteShop(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.shops.all })
+      toast.success('Shop deleted')
+    },
+    onError: (error) => {
+      // A 409 (blocked-by-products) is shown inline by DeleteShopDialog instead.
+      if (error instanceof ApiError && error.status === 409) return
       toast.error(error.message)
     },
   })
