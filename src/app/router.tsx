@@ -1,25 +1,11 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { AppLayout } from '@/app/layout/AppLayout'
+import { DashboardPage } from '@/features/dashboard/DashboardPage'
 import { LoginPage } from '@/features/auth/LoginPage'
 import { ProtectedRoute } from '@/features/auth/ProtectedRoute'
 import { PublicOnlyRoute } from '@/features/auth/PublicOnlyRoute'
-import { useAuthStore } from '@/features/auth/store'
 
-// Temporary stand-ins — replaced by the real dashboard (step 9) and
-// shop/product features (steps 10-17).
-function DashboardStub() {
-  const user = useAuthStore((s) => s.user)
-
-  return (
-    <div className="space-y-2">
-      <h1 className="text-2xl font-semibold">Dashboard</h1>
-      <p className="text-muted-foreground">
-        Signed in as {user?.name} ({user?.role}). Summary cards and charts land in the next step.
-      </p>
-    </div>
-  )
-}
-
+// Temporary stand-ins — replaced by the real shop/product features (steps 10-17).
 function ShopsStub() {
   return (
     <div className="space-y-2">
@@ -57,7 +43,7 @@ export function AppRouter() {
         <Route element={<ProtectedRoute />}>
           <Route element={<AppLayout />}>
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
-            <Route path="/dashboard" element={<DashboardStub />} />
+            <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/shops" element={<ShopsStub />} />
             <Route path="/products" element={<ProductsStub />} />
           </Route>
