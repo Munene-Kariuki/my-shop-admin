@@ -5,13 +5,13 @@ import { LoginPage } from '@/features/auth/LoginPage'
 import { ProtectedRoute } from '@/features/auth/ProtectedRoute'
 import { PublicOnlyRoute } from '@/features/auth/PublicOnlyRoute'
 import { RequireRole } from '@/features/auth/RequireRole'
+import { ProductFormPage } from '@/features/products/ProductFormPage'
 import { ProductListPage } from '@/features/products/ProductListPage'
 import { ShopDetailsPage } from '@/features/shops/ShopDetailsPage'
 import { ShopFormPage } from '@/features/shops/ShopFormPage'
 import { ShopListPage } from '@/features/shops/ShopListPage'
 
-// Temporary stand-in — replaced by the real product create/edit (step 15)
-// and product details (step 16) pages.
+// Temporary stand-in — replaced by the real product details page (step 16).
 function ComingSoonStub({ title }: { title: string }) {
   return (
     <div className="space-y-2">
@@ -64,7 +64,7 @@ export function AppRouter() {
               path="/products/new"
               element={
                 <RequireRole allow={['admin']}>
-                  <ComingSoonStub title="New Product" />
+                  <ProductFormPage />
                 </RequireRole>
               }
             />
@@ -73,7 +73,7 @@ export function AppRouter() {
               path="/products/:productId/edit"
               element={
                 <RequireRole allow={['admin']}>
-                  <ComingSoonStub title="Edit Product" />
+                  <ProductFormPage />
                 </RequireRole>
               }
             />
