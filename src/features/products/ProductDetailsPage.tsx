@@ -1,4 +1,4 @@
-import { DollarSign, Layers, Package, PackagePlus, Pencil } from 'lucide-react'
+import { DollarSign, Layers, Package, Pencil } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
 import { EmptyState } from '@/components/common/EmptyState'
 import { ErrorState } from '@/components/common/ErrorState'
@@ -9,6 +9,7 @@ import { StockStatusBadge } from '@/components/common/StockStatusBadge'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
+import { InventoryAdjustmentDialog } from '@/features/products/components/InventoryAdjustmentDialog'
 import { InventoryHistoryTable } from '@/features/products/components/InventoryHistoryTable'
 import { useInventoryHistory, useProduct } from '@/features/products/hooks'
 import { useShop } from '@/features/shops/hooks'
@@ -105,10 +106,7 @@ export function ProductDetailsPage() {
             </Button>
           </RoleGate>
           <RoleGate allow={['admin']}>
-            <Button variant="outline" disabled title="Coming in the next step">
-              <PackagePlus className="size-4" />
-              Adjust Stock
-            </Button>
+            <InventoryAdjustmentDialog product={product} />
           </RoleGate>
         </div>
       </div>

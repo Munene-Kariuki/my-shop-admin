@@ -75,7 +75,7 @@ describe('ProductDetailsPage', () => {
       )
     })
 
-    it('shows an edit link and a disabled adjust-stock action', async () => {
+    it('shows edit and adjust-stock actions', async () => {
       renderAt('product-UT-0001')
       await screen.findByText('Classic Crewneck Tee')
 
@@ -83,7 +83,7 @@ describe('ProductDetailsPage', () => {
         'href',
         '/products/product-UT-0001/edit',
       )
-      expect(screen.getByRole('button', { name: /adjust stock/i })).toBeDisabled()
+      expect(screen.getByRole('button', { name: /adjust stock/i })).toBeEnabled()
     })
   })
 
