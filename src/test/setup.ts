@@ -7,6 +7,18 @@ import { server } from '@/mocks/server'
 
 beforeAll(() => {
   server.listen({ onUnhandledRequest: 'error' })
+
+  // jsdom doesn't implement these — Radix UI's Select (and other pointer-based
+  // primitives) call them during interaction, which throws under jsdom otherwise.
+  if (!Element.prototype.hasPointerCapture) {
+    Element.prototype.hasPointerCapture = () => false
+  }
+  if (!Element.prototype.releasePointerCapture) {
+    Element.prototype.releasePointerCapture = () => {}
+  }
+  if (!Element.prototype.scrollIntoView) {
+    Element.prototype.scrollIntoView = () => {}
+  }
 })
 
 afterEach(() => {

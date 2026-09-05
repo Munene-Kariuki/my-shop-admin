@@ -5,19 +5,11 @@ import { LoginPage } from '@/features/auth/LoginPage'
 import { ProtectedRoute } from '@/features/auth/ProtectedRoute'
 import { PublicOnlyRoute } from '@/features/auth/PublicOnlyRoute'
 import { RequireRole } from '@/features/auth/RequireRole'
+import { ProductFormPage } from '@/features/products/ProductFormPage'
+import { ProductListPage } from '@/features/products/ProductListPage'
 import { ShopDetailsPage } from '@/features/shops/ShopDetailsPage'
 import { ShopFormPage } from '@/features/shops/ShopFormPage'
 import { ShopListPage } from '@/features/shops/ShopListPage'
-
-// Temporary stand-in — replaced by the real product feature (step 14).
-function ProductsStub() {
-  return (
-    <div className="space-y-2">
-      <h1 className="text-2xl font-semibold">Products</h1>
-      <p className="text-muted-foreground">Product management lands in an upcoming step.</p>
-    </div>
-  )
-}
 
 // Temporary stand-in — replaced by the real product details page (step 16).
 function ComingSoonStub({ title }: { title: string }) {
@@ -67,8 +59,24 @@ export function AppRouter() {
                 </RequireRole>
               }
             />
-            <Route path="/products" element={<ProductsStub />} />
+            <Route path="/products" element={<ProductListPage />} />
+            <Route
+              path="/products/new"
+              element={
+                <RequireRole allow={['admin']}>
+                  <ProductFormPage />
+                </RequireRole>
+              }
+            />
             <Route path="/products/:productId" element={<ComingSoonStub title="Product Details" />} />
+            <Route
+              path="/products/:productId/edit"
+              element={
+                <RequireRole allow={['admin']}>
+                  <ProductFormPage />
+                </RequireRole>
+              }
+            />
           </Route>
         </Route>
         <Route path="*" element={<NotFoundStub />} />

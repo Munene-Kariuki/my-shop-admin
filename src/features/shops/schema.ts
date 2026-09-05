@@ -1,10 +1,5 @@
 import { z } from 'zod'
-
-const optionalUrl = z.union([z.literal(''), z.string().trim().url('Enter a valid URL')])
-const optionalEmail = z.union([
-  z.literal(''),
-  z.string().trim().email('Enter a valid email address'),
-])
+import { optionalEmail, optionalUrl } from '@/lib/zodHelpers'
 
 export const shopSchema = z.object({
   name: z.string().trim().min(1, 'Shop name is required'),
