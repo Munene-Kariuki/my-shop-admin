@@ -3,6 +3,7 @@ import type {
   AuthenticatedUser,
   InventoryAdjustment,
   Product,
+  ProductStatus,
   ShopStatus,
 } from '@/types/domain'
 
@@ -50,4 +51,16 @@ export interface ShopInputBody {
   logoUrl?: string
   contactEmail?: string
   status?: ShopStatus
+}
+
+export interface ProductInputBody {
+  name: string
+  sku: string
+  shopId: string
+  category: string
+  price: number
+  stock: number
+  description?: string
+  imageUrl?: string
+  status?: ProductStatus
 }
