@@ -3,6 +3,7 @@ import type {
   AuthenticatedUser,
   InventoryAdjustment,
   Product,
+  ShopStatus,
 } from '@/types/domain'
 
 export interface ApiErrorBody {
@@ -41,4 +42,12 @@ export interface InventoryAdjustmentRequestBody {
 export interface InventoryAdjustmentResponseBody {
   product: Product
   adjustment: InventoryAdjustment
+}
+
+export interface ShopInputBody {
+  name: string
+  description?: string
+  logoUrl?: string
+  contactEmail?: string
+  status?: ShopStatus
 }

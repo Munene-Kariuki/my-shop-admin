@@ -1,6 +1,7 @@
 import type { HttpHandler } from 'msw'
 import { authHandlers } from '@/mocks/handlers/auth'
 import { inventoryHandlers } from '@/mocks/handlers/inventory'
+import { shopsHandlers } from '@/mocks/handlers/shops'
 
-// Shops and products handlers are added in later steps.
-export const handlers: HttpHandler[] = [...authHandlers, ...inventoryHandlers]
+// Products handlers are added in a later step.
+export const handlers: HttpHandler[] = [...authHandlers, ...inventoryHandlers, ...shopsHandlers]
