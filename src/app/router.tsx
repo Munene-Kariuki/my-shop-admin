@@ -5,30 +5,13 @@ import { LoginPage } from '@/features/auth/LoginPage'
 import { ProtectedRoute } from '@/features/auth/ProtectedRoute'
 import { PublicOnlyRoute } from '@/features/auth/PublicOnlyRoute'
 import { RequireRole } from '@/features/auth/RequireRole'
+import { NotFoundPage } from '@/features/NotFoundPage'
+import { ProductDetailsPage } from '@/features/products/ProductDetailsPage'
 import { ProductFormPage } from '@/features/products/ProductFormPage'
 import { ProductListPage } from '@/features/products/ProductListPage'
 import { ShopDetailsPage } from '@/features/shops/ShopDetailsPage'
 import { ShopFormPage } from '@/features/shops/ShopFormPage'
 import { ShopListPage } from '@/features/shops/ShopListPage'
-
-// Temporary stand-in — replaced by the real product details page (step 16).
-function ComingSoonStub({ title }: { title: string }) {
-  return (
-    <div className="space-y-2">
-      <h1 className="text-2xl font-semibold">{title}</h1>
-      <p className="text-muted-foreground">This page lands in an upcoming step.</p>
-    </div>
-  )
-}
-
-function NotFoundStub() {
-  return (
-    <div className="flex min-h-svh flex-col items-center justify-center gap-2 text-center">
-      <h1 className="text-2xl font-semibold">Page not found</h1>
-      <p className="text-muted-foreground">This route doesn&apos;t exist.</p>
-    </div>
-  )
-}
 
 export function AppRouter() {
   return (
@@ -68,7 +51,7 @@ export function AppRouter() {
                 </RequireRole>
               }
             />
-            <Route path="/products/:productId" element={<ComingSoonStub title="Product Details" />} />
+            <Route path="/products/:productId" element={<ProductDetailsPage />} />
             <Route
               path="/products/:productId/edit"
               element={
@@ -79,7 +62,7 @@ export function AppRouter() {
             />
           </Route>
         </Route>
-        <Route path="*" element={<NotFoundStub />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   )

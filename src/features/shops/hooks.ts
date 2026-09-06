@@ -18,6 +18,7 @@ export function useShop(id: string) {
   return useQuery({
     queryKey: queryKeys.shops.detail(id),
     queryFn: () => getShop(id),
+    enabled: id !== '',
   })
 }
 

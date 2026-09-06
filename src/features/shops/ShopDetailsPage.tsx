@@ -1,5 +1,5 @@
 import type { ColumnDef, SortingState } from '@tanstack/react-table'
-import { DollarSign, Layers, Package, Pencil, Trash2 } from 'lucide-react'
+import { Banknote, Layers, Package, Pencil, Trash2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { DataTable } from '@/components/common/DataTable'
@@ -192,7 +192,7 @@ export function ShopDetailsPage() {
         <StatCard
           label="Total Inventory Value"
           value={formatCurrency(shop.totalInventoryValue)}
-          icon={DollarSign}
+          icon={Banknote}
         />
       </div>
 

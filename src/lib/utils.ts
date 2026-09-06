@@ -1,8 +1,8 @@
 export { cn } from "cn"
 
-const currencyFormatter = new Intl.NumberFormat('en-US', {
+const currencyFormatter = new Intl.NumberFormat('en-KE', {
   style: 'currency',
-  currency: 'USD',
+  currency: 'KES',
 })
 
 const numberFormatter = new Intl.NumberFormat('en-US')
