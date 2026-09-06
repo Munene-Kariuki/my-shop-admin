@@ -104,7 +104,7 @@ describe('ProductListPage', () => {
       await user.click(screen.getByRole('button', { name: /^price/i }))
 
       const rows = within(tableBody()).getAllByRole('row')
-      const firstRowPrice = within(rows[0]).getByText(/^\$/)
+      const firstRowPrice = within(rows[0]).getByText(/^Ksh/)
       expect(firstRowPrice).toBeInTheDocument()
     })
 

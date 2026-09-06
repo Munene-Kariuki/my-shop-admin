@@ -1,4 +1,4 @@
-import { DollarSign, Layers, Package, Pencil } from 'lucide-react'
+import { Banknote, Layers, Package, Pencil } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
 import { EmptyState } from '@/components/common/EmptyState'
 import { ErrorState } from '@/components/common/ErrorState'
@@ -112,7 +112,7 @@ export function ProductDetailsPage() {
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <StatCard label="Price" value={formatCurrency(product.price)} icon={DollarSign} />
+        <StatCard label="Price" value={formatCurrency(product.price)} icon={Banknote} />
         <StatCard label="Current Stock" value={formatNumber(product.stock)} icon={Layers} />
         <StatCard label="Inventory Value" value={formatCurrency(inventoryValue)} icon={Package} />
       </div>

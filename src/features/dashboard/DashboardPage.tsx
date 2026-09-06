@@ -1,4 +1,4 @@
-import { AlertTriangle, DollarSign, Package, PackageX, Store } from 'lucide-react'
+import { AlertTriangle, Banknote, Package, PackageX, Store } from 'lucide-react'
 import { EmptyState } from '@/components/common/EmptyState'
 import { ErrorState } from '@/components/common/ErrorState'
 import { StatCard } from '@/components/common/StatCard'
@@ -61,7 +61,7 @@ export function DashboardPage() {
         <StatCard
           label="Total Inventory Value"
           value={formatCurrency(summary.totalInventoryValue)}
-          icon={DollarSign}
+          icon={Banknote}
         />
         <StatCard
           label="Low-Stock Products"
