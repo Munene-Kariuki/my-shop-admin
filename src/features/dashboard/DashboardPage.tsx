@@ -6,16 +6,20 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { StockStatusChart } from '@/features/dashboard/components/StockStatusChart'
 import { TopShopsChart } from '@/features/dashboard/components/TopShopsChart'
 import { useDashboard } from '@/features/dashboard/hooks'
+import { useAuthStore } from '@/features/auth/store'
+import { getGreeting } from '@/lib/greeting'
 import { formatCurrency, formatNumber } from '@/lib/utils'
 
 export function DashboardPage() {
   const { isLoading, isError, error, isEmpty, refetch, summary, stockStatusCounts, topShops } =
     useDashboard()
+  const firstName = useAuthStore((s) => s.user?.name.split(' ')[0])
+  const greeting = firstName ? `${getGreeting()}, ${firstName}` : 'Dashboard'
 
   if (isError) {
     return (
       <div className="space-y-4">
-        <h1 className="text-2xl font-semibold">Dashboard</h1>
+        <h1 className="text-2xl font-semibold">{greeting}</h1>
         <ErrorState message={error?.message} onRetry={refetch} />
       </div>
     )
@@ -24,7 +28,7 @@ export function DashboardPage() {
   if (isLoading) {
     return (
       <div className="space-y-6">
-        <h1 className="text-2xl font-semibold">Dashboard</h1>
+        <h1 className="text-2xl font-semibold">{greeting}</h1>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {Array.from({ length: 6 }).map((_, index) => (
             <Skeleton key={index} className="h-20 rounded-lg" />
@@ -41,7 +45,7 @@ export function DashboardPage() {
   if (isEmpty) {
     return (
       <div className="space-y-4">
-        <h1 className="text-2xl font-semibold">Dashboard</h1>
+        <h1 className="text-2xl font-semibold">{greeting}</h1>
         <EmptyState
           title="No data yet"
           message="Add a shop and some products to see dashboard insights here."
@@ -52,7 +56,7 @@ export function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-semibold">Dashboard</h1>
+      <h1 className="text-2xl font-semibold">{greeting}</h1>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <StatCard label="Total Shops" value={formatNumber(summary.totalShops)} icon={Store} />
