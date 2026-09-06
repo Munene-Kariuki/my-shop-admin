@@ -36,8 +36,12 @@ export function LoginPage() {
         : null
 
   return (
-    <div className="flex min-h-svh items-center justify-center bg-muted/30 p-4">
-      <Card className="w-full max-w-sm">
+    <div
+      className="relative flex min-h-svh items-center justify-center bg-cover bg-center p-4"
+      style={{ backgroundImage: 'url(/login-background.png)' }}
+    >
+      <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
+      <Card className="relative z-10 w-full max-w-sm bg-card/95 shadow-xl backdrop-blur-sm">
         <CardHeader>
           <CardTitle>Sign in</CardTitle>
           <CardDescription>My Shop Admin Panel</CardDescription>
@@ -82,10 +86,6 @@ export function LoginPage() {
               {loginMutation.isPending ? 'Signing in…' : 'Sign in'}
             </Button>
           </form>
-
-          <p className="mt-4 text-center text-xs text-muted-foreground">
-            Demo accounts: admin@myshop.test / viewer@myshop.test — password: password123
-          </p>
         </CardContent>
       </Card>
     </div>

@@ -5,21 +5,13 @@ import { LoginPage } from '@/features/auth/LoginPage'
 import { ProtectedRoute } from '@/features/auth/ProtectedRoute'
 import { PublicOnlyRoute } from '@/features/auth/PublicOnlyRoute'
 import { RequireRole } from '@/features/auth/RequireRole'
+import { NotFoundPage } from '@/features/NotFoundPage'
 import { ProductDetailsPage } from '@/features/products/ProductDetailsPage'
 import { ProductFormPage } from '@/features/products/ProductFormPage'
 import { ProductListPage } from '@/features/products/ProductListPage'
 import { ShopDetailsPage } from '@/features/shops/ShopDetailsPage'
 import { ShopFormPage } from '@/features/shops/ShopFormPage'
 import { ShopListPage } from '@/features/shops/ShopListPage'
-
-function NotFoundStub() {
-  return (
-    <div className="flex min-h-svh flex-col items-center justify-center gap-2 text-center">
-      <h1 className="text-2xl font-semibold">Page not found</h1>
-      <p className="text-muted-foreground">This route doesn&apos;t exist.</p>
-    </div>
-  )
-}
 
 export function AppRouter() {
   return (
@@ -70,7 +62,7 @@ export function AppRouter() {
             />
           </Route>
         </Route>
-        <Route path="*" element={<NotFoundStub />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   )
