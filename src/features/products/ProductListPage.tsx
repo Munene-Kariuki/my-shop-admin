@@ -41,7 +41,7 @@ export function ProductListPage() {
     if (debouncedSearch !== urlState.search) {
       setUrlState({ search: debouncedSearch, page: '1' })
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- only react to the debounced value changing
+    // eslint-disable-next-line react-hooks/exhaustive-deps - only react to the debounced value changing
   }, [debouncedSearch])
 
   const shopsQuery = useShops({ pageSize: 100, sort: 'name' })
