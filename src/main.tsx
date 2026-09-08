@@ -8,7 +8,7 @@ import './index.css'
 async function enableMocking() {
   const { worker } = await import('@/mocks/browser')
   // This app has no real backend — MSW intercepts every request, in dev and
-  // in the deployed build alike, so the mock API "deploys" along with the app.
+  // in the deployed build alike, so the mock API deploys along with the app.
   return worker.start({
     onUnhandledRequest: 'bypass',
     serviceWorker: {
